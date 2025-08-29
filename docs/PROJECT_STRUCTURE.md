@@ -21,24 +21,21 @@ rhythmclick/
 ├── builds/                  # Compiled game builds
 │   └── windows/             # Windows platform builds
 ├── scenes/                  # Godot scene files (.tscn)
-│   ├── instruments/         # Instrument-related scenes
-│   ├── rhythm_game/         # Core rhythm gameplay scenes
-│   └── ui/                  # User interface scenes
+│   ├── main.tscn            # Main game scene (Week 1 complete)
+│   ├── instruments/         # Instrument-related scenes (empty - Week 2+)
+│   ├── rhythm_game/         # Core rhythm gameplay scenes (empty)
+│   └── ui/                  # User interface scenes (empty)
 ├── scripts/                 # GDScript files
 │   ├── core/                # Core game systems
-│   │   ├── InputJudge.gd    # Input timing judgment
-│   │   ├── Metronome.gd     # Global timing system
-│   │   └── RhythmData.gd    # Rhythm pattern data structures
+│   │   ├── InputJudge.gd    # Input timing judgment system
+│   │   └── Metronome.gd     # Global timing system (singleton)
 │   ├── game/                # Main game logic
-│   │   ├── CurrencyManager.gd # Groove currency system
-│   │   ├── GameManager.gd     # Overall game state management
+│   │   ├── CurrencyManager.gd # Groove currency system (singleton)
+│   │   ├── GameManager.gd     # Main game coordinator
 │   │   └── RhythmController.gd # Rhythm game controller
-│   ├── instruments/         # Instrument implementations
-│   │   ├── DrumMachine.gd   # Drum machine instrument
-│   │   └── Instrument.gd    # Base instrument class
+│   ├── instruments/         # Instrument implementations (empty - Week 2+)
 │   └── ui/                  # UI controllers
-│       ├── HUDController.gd # Main HUD display
-│       └── ShopController.gd # Instrument shop interface
+│       └── HUDController.gd # UI updates and animations
 ├── CLAUDE.md               # Main Claude Code guidance file
 ├── icon.svg               # Project icon
 ├── icon.svg.import        # Godot import settings for icon
@@ -51,12 +48,12 @@ rhythmclick/
 - **Assets**: snake_case with category prefixes (e.g., `drum_kick_120bpm.ogg`)
 - **Documentation**: UPPERCASE with underscores (e.g., `GAME_DESIGN.md`)
 
-## Key System Locations
-- **Core Rhythm Logic**: `scripts/core/`
-- **Game State Management**: `scripts/game/GameManager.gd`
-- **Currency System**: `scripts/game/CurrencyManager.gd`  
-- **Main Game Scene**: `scenes/main.tscn` (to be created)
-- **Audio Assets**: `audio/instruments/[instrument_name]/`
+## Key System Locations ✅ IMPLEMENTED (Week 1)
+- **Core Rhythm Logic**: `scripts/core/` ✅ (InputJudge.gd, Metronome.gd complete)
+- **Game State Management**: `scripts/game/GameManager.gd` ✅ (fully implemented)
+- **Currency System**: `scripts/game/CurrencyManager.gd` ✅ (singleton implemented)
+- **Main Game Scene**: `scenes/main.tscn` ✅ (working rhythm game interface)
+- **Audio Assets**: `audio/instruments/[instrument_name]/` (folders exist, placeholder audio in use)
 
 ## Development Notes
 - Use Godot 4.4 with GL Compatibility renderer
@@ -64,6 +61,20 @@ rhythmclick/
 - Main scene entry point: `res://main.tscn`
 - Build output: `builds/` directory
 
+## Current Project State - Week 1 Demo Complete
+- **Scripts**: All Week 1 core systems implemented and ready
+  - ✅ Metronome system with precise 90 BPM timing
+  - ✅ Currency Manager for Groove points 
+  - ✅ Input Judge for timing accuracy detection
+  - ✅ Rhythm Controller connecting all systems
+  - ✅ HUD Controller for UI updates and animations
+  - ✅ Game Manager coordinating everything
+- **Scenes**: Main game scene with pulsing circle interface ready
+- **Audio**: Placeholder audio files in place (need real .ogg files)
+- **Functionality**: Basic rhythm tapping game ready for testing
+
 ## Update Log
-- **Current**: Initial project structure established
-- **Next Update**: After completing Week 1 demo implementation
+- **2024-12-29**: Updated PROJECT_STRUCTURE.md to reflect actual current state (post-rollback)
+- **2024-12-29**: Week 1 Demo "The Basic Beat" implementation completed ✅
+- **2024-12-29**: Week 1 Demo tested and confirmed working - 100+ Groove in 30 seconds achievable ✅
+- **Next Update**: Ready for Week 2 Demo implementation - "Your First Band Member"

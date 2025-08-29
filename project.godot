@@ -11,8 +11,15 @@ config_version=5
 [application]
 
 config/name="RhythmClick"
+run/main_scene="res://scenes/main.tscn"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://icon.svg"
+
+[autoload]
+
+Metronome="*res://scripts/core/Metronome.gd"
+CurrencyManager="*res://scripts/game/CurrencyManager.gd"
+InputJudge="*res://scripts/core/InputJudge.gd"
 
 [rendering]
 

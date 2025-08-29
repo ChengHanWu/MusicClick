@@ -1,0 +1,3 @@
+# This is a placeholder file for the metronome tick sound
+# In a real implementation, this would be an actual .ogg audio file
+# For now, we'll use Godot's built-in audio generation or simple beep sounds
