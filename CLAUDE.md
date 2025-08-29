@@ -2,194 +2,45 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## 專案核心概念
+## Project Overview
 
-**名稱 (暫定)**: Rhythm & Groove / Beat Echo  
-**類型**: 節奏放置遊戲 (Rhythm/Idle Hybrid)  
-**引擎**: Godot 4.4 with GL Compatibility renderer  
-**目標平台**: Steam (Windows Desktop)
+**Rhythm & Groove** is a peaceful rhythm-idle hybrid game where players tap along to natural sounds to earn currency and build a virtual musical ecosystem.
 
-### 核心循環
+## Documentation Structure
 
-- **主動遊玩 (Active)**: 透過一個高品質的「節奏模仿」迷你遊戲，根據表現和BPM難度，快速賺取貨幣 Groove。
-- **被動遊玩 (Passive)**: 使用 Groove 購買各種「樂器」。每種樂器都會自動產生 Groove，並為遊戲貢獻一段獨特的、和諧的音樂 Clip。
-- **遊戲進程**: 玩家透過主動遊玩賺取資本，用資本建立一支「自動演奏樂隊」，最終的背景音樂本身，就是玩家進度的證明。
+This project uses organized documentation files:
 
-## 開發指令
+- **`docs/DEVELOPMENT_PLAN.md`** - PM-oriented demoable feature development plan
+- **`docs/GAME_DESIGN.md`** - Core game design document and vision  
+- **`docs/PROJECT_STRUCTURE.md`** - Current folder structure reference
+- **`docs/TECHNICAL_SPECS.md`** - Technical implementation details and commands
 
-### 執行專案
-- 開啟專案：啟動 Godot Editor 並開啟此專案資料夾
-- 執行遊戲：在 Godot Editor 中按 F5
-- 命令行執行：`godot --path . --main-scene res://main.tscn`
+## Development Approach
 
-### 建置與匯出
-- 匯出 Windows 版本：`godot --headless --export-release "Windows Desktop" builds/rhythmclick.exe`
-- 匯出除錯版本：`godot --headless --export-debug "Windows Desktop" builds/rhythmclick-debug.exe`
+### Feature-Driven Development Cycle
+1. **Plan**: Reference next demoable feature from `docs/DEVELOPMENT_PLAN.md`
+2. **Structure**: Check current organization in `docs/PROJECT_STRUCTURE.md`
+3. **Design**: Create technical implementation plan
+4. **Build**: Implement the feature following Godot best practices
+5. **Demo**: Test playability and get feedback
+6. **Update**: Refresh folder structure documentation
 
-## 60天開發計畫 (8週)
+### Quick Start Commands
+```bash
+# Run the project
+godot --path . --main-scene res://main.tscn
 
-### 第一階段：核心原型驗證 (Weeks 1-2)
-**目標**：用最簡陋的美術，驗證「節奏 + 放置」的混合核心玩法是否有趣。
+# Export Windows build  
+godot --headless --export-release "Windows Desktop" builds/rhythmclick.exe
+```
 
-#### Week 1: 節奏核心 (The Rhythm Core)
+## Current Focus
 
-- **Day 1-2**: 數據結構與節拍器  
-  建立我們討論過的「字典陣列」來定義節奏。並做出一個穩定、精準，能根據BPM變化的全局節拍器（Metronome）。
+We're following a **demoable feature approach** where each week delivers a playable experience that can be demonstrated and tested. See `docs/DEVELOPMENT_PLAN.md` for the complete roadmap.
 
-- **Day 3-4**: 輸入判定系統  
-  這是技術核心。完成捕捉玩家輸入、與目標時間比對、並給出 Perfect/Good/Miss 判定的邏輯。
+### Next Target: Week 1 Demo - "The Basic Beat"
+Create a simple rhythm tapping interface where players earn Groove currency by clicking in time with a pulsing beat.
 
-- **Day 5-7**: 完成節奏循環  
-  實現「提示 -> 倒數 -> 輸入 -> 結算」的完整狀態機。此時，你應該有一個可以獨立運作的節奏迷你遊戲了。
+## Legacy Reference
 
-#### Week 2: 混合循環 (The Hybrid Loop)
-
-- **Day 8-9**: 貨幣與第一個樂器  
-  引入 Groove 作為貨幣。並建立第一個被動產生器——「鼓機」，它可以被購買，並能被動產生 Groove。
-
-- **Day 10-12**: 連結兩個系統  
-  讓節奏遊戲的結算獎勵是 Groove。讓購買樂器消耗 Groove。實現樂器成本隨購買數量增加的曲線。
-
-- **Day 13-14**: 原型可玩性測試  
-  這是第一個關鍵節點。親自玩這個簡陋的原型，感受一下：主動玩和被動玩的收益平衡嗎？節奏遊戲的挑戰性如何？這個核心循環有趣嗎？
-
-### 第二階段：系統與內容擴充 (Weeks 3-4)
-**目標**：圍繞核心玩法，建構遊戲的成長系統和主要內容。
-
-#### Week 3: 成長系統 (The Progression Systems)
-
-- **Day 15-17**: 升級系統  
-  建立升級商店。設計並實作至少兩類升級：節奏類（如：判定放寬、Combo獎勵提升）和放置類（如：所有樂器被動收入+10%）。
-
-- **Day 18-21**: BPM 調節器  
-  實現 UI 讓玩家可以選擇不同的 BPM 挑戰。完成獎勵乘數的邏輯。最重要的是，建立好多套預先渲染好的、對應不同 BPM 的音訊 Clip 檔案管理系統。
-
-#### Week 4: 內容創作 (Content Creation)
-
-- **Day 22-25**: 譜寫節奏  
-  利用你建立好的數據結構，創作 10-15 個不同的節奏模式，難度從易到難。
-
-- **Day 26-28**: 新增樂器與剪輯音樂  
-  這是你的音樂創作時間。設計並新增 3-4 種新樂器（如貝斯、鋼琴、合成器）。為所有樂器剪輯好在 C 大調下的、對應不同 BPM 的音樂 Clips。
-
-### 第三階段：感官體驗與打磨 (Weeks 5-6)
-**目標**：讓遊戲看起來、聽起來都非常棒。這是將遊戲從「能玩」提升到「好玩」的關鍵。
-
-#### Week 5: 生成式音樂系統 (The Generative Music System)
-
-- **Day 29-32**: 實現「指揮家」  
-  建立全局的 Timer，讓所有已購買的樂器都能跟隨它的信號，同步播放對應 BPM 的隨機 Clip。
-
-- **Day 33-35**: 混音與層次感  
-  調整不同樂器的音量。思考樂器 Clip 的分層設計（基礎、和弦、旋律），確保它們疊加在一起時是和諧而不是混亂。也許可以設計一個上限，例如同時最多只播放 4-5 種樂器的聲音。
-
-#### Week 6: 視聽特效工廠 (The "Juice" Factory)
-
-- **Day 36-38**: 節奏回饋打磨  
-  為 Perfect/Good/Miss 加上精緻的動畫和音效。為 Combo 數達標時的「Fire」狀態加上酷炫的粒子特效。
-
-- **Day 39-42**: UI/UX 整體優化  
-  尋找並整合一套風格統一的 UI 素材和字體。為所有按鈕加上懸停、點擊效果。讓數字的增減帶有動畫。這是替換所有方塊、圓形等開發初期素材的階段。
-
-### 第四階段：最終產品化與發布 (Weeks 7-8)
-**目標**：完成所有讓遊戲能被稱為「完整產品」的功能，並準備上架。
-
-#### Week 7: 產品化功能 (Product Features)
-
-- **Day 43-46**: 存檔/讀取系統  
-  這是絕對的核心功能。確保玩家的所有進度（Groove、樂器數量、已購升級、解鎖的BPM等）都能被可靠地儲存和讀取。實現基於被動收入的離線收益計算。
-
-- **Day 47-49**: Prestige (轉生) 系統  
-  充裕的時間讓我們可以加入這個系統來增加重玩性。設計一個簡單的轉生機制，例如：當總收入達到一個天文數字時，玩家可以選擇重置進度，以換取一個永久的全局增益（例如「和聲水晶」，每顆讓總收入永久+1%）。
-
-#### Week 8: 發布準備 (The Launch Runway)
-
-- **Day 50-53**: 全面測試與平衡  
-  從頭到尾完整地玩你的遊戲。找 3-5 位朋友幫你測試。遊戲的成長速度是否合理？Prestige 的時機是否太早或太晚？修復所有 Bug。
-
-- **Day 54-55**: 商店頁面準備  
-  註冊 Steamworks。製作你的商店所需的各種尺寸的圖片資源。撰寫吸引人的遊戲介紹。
-
-- **Day 56-57**: 最終打包與上傳  
-  匯出你的遊戲最終版本。在 Steam 後台上傳你的 Build，並進行所有相關設定。
-
-- **Day 58-60**: 提交審核與緩衝  
-  點下「提交審核」按鈕。這幾天是緩衝期，用來應對審核可能提出的修改意見。同時，你可以準備你的「發布日」社群貼文。審核通過後，你就可以在任何你喜歡的時刻，按下那個綠色的「發布」按鈕了！
-
-## TODO List
-
-### 🎯 第一階段 - 核心原型驗證 (Weeks 1-2)
-
-#### Week 1: 節奏核心
-- [ ] **Day 1-2**: 建立節奏數據結構（字典陣列）
-- [ ] **Day 1-2**: 實作全局節拍器 (Metronome) 系統
-- [ ] **Day 3-4**: 開發輸入捕捉系統
-- [ ] **Day 3-4**: 實作時間判定邏輯 (Perfect/Good/Miss)
-- [ ] **Day 5-7**: 建立節奏遊戲狀態機
-- [ ] **Day 5-7**: 完成「提示 -> 倒數 -> 輸入 -> 結算」循環
-
-#### Week 2: 混合循環
-- [ ] **Day 8-9**: 實作 Groove 貨幣系統
-- [ ] **Day 8-9**: 建立第一個樂器（鼓機）
-- [ ] **Day 8-9**: 實作被動 Groove 產生機制
-- [ ] **Day 10-12**: 連結節奏遊戲與貨幣獎勵
-- [ ] **Day 10-12**: 實作樂器購買系統
-- [ ] **Day 10-12**: 建立樂器成本遞增公式
-- [ ] **Day 13-14**: 原型遊戲測試與平衡調整
-
-### 🚀 第二階段 - 系統與內容擴充 (Weeks 3-4)
-
-#### Week 3: 成長系統
-- [ ] **Day 15-17**: 建立升級商店 UI
-- [ ] **Day 15-17**: 實作節奏類升級（判定容差、Combo 加成）
-- [ ] **Day 15-17**: 實作放置類升級（被動收入加成）
-- [ ] **Day 18-21**: 開發 BPM 選擇器 UI
-- [ ] **Day 18-21**: 實作 BPM 難度獎勵倍數
-- [ ] **Day 18-21**: 建立多 BPM 音檔管理系統
-
-#### Week 4: 內容創作
-- [ ] **Day 22-25**: 創作 10-15 個節奏模式（易到難）
-- [ ] **Day 22-25**: 實作節奏模式選擇系統
-- [ ] **Day 26-28**: 設計 3-4 種新樂器（貝斯、鋼琴、合成器）
-- [ ] **Day 26-28**: 製作 C 大調音樂 Clips（多 BPM 版本）
-- [ ] **Day 26-28**: 整合音檔到遊戲系統
-
-### 🎨 第三階段 - 感官體驗與打磨 (Weeks 5-6)
-
-#### Week 5: 生成式音樂
-- [ ] **Day 29-32**: 實作全局音樂指揮家系統
-- [ ] **Day 29-32**: 建立樂器同步播放機制
-- [ ] **Day 29-32**: 實作隨機 Clip 選擇邏輯
-- [ ] **Day 33-35**: 調整各樂器音量平衡
-- [ ] **Day 33-35**: 實作音樂分層系統（基礎/和弦/旋律）
-- [ ] **Day 33-35**: 建立同時播放樂器數量限制（4-5 個）
-
-#### Week 6: 視聽效果
-- [ ] **Day 36-38**: 製作 Perfect/Good/Miss 動畫效果
-- [ ] **Day 36-38**: 加入 Combo Fire 狀態粒子特效
-- [ ] **Day 36-38**: 完善節奏回饋音效系統
-- [ ] **Day 39-42**: 整合統一風格 UI 素材和字體
-- [ ] **Day 39-42**: 實作按鈕懸停/點擊動畫
-- [ ] **Day 39-42**: 加入數字增減動畫效果
-
-### 📦 第四階段 - 產品化與發布 (Weeks 7-8)
-
-#### Week 7: 產品化功能
-- [ ] **Day 43-46**: 實作完整存檔/讀取系統
-- [ ] **Day 43-46**: 建立離線收益計算機制
-- [ ] **Day 43-46**: 測試數據持久化穩定性
-- [ ] **Day 47-49**: 設計 Prestige 轉生機制
-- [ ] **Day 47-49**: 實作「和聲水晶」永久加成系統
-- [ ] **Day 47-49**: 平衡轉生時機與獎勵
-
-#### Week 8: 發布準備
-- [ ] **Day 50-53**: 完整遊戲測試（自測 + 友測）
-- [ ] **Day 50-53**: 遊戲平衡調整與 Bug 修復
-- [ ] **Day 50-53**: Prestige 時機優化
-- [ ] **Day 54-55**: 註冊 Steamworks 開發者帳戶
-- [ ] **Day 54-55**: 製作 Steam 商店圖片資源
-- [ ] **Day 54-55**: 撰寫遊戲介紹文案
-- [ ] **Day 56-57**: 配置 Steam 建置設定
-- [ ] **Day 56-57**: 匯出最終版本並上傳
-- [ ] **Day 58-60**: 提交 Steam 審核
-- [ ] **Day 58-60**: 準備發布日宣傳材料
+The detailed technical development plan and TODO lists have been moved to organized documentation files in the `docs/` folder for better maintenance and clarity.
