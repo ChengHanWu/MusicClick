@@ -19,12 +19,12 @@
 - [x] **Demo Script**: "Watch as I tap along to this simple beat - each perfect tap earns me Groove points!"
 - [x] **Success Criteria**: Player can earn 100+ Groove in 30 seconds of play
 
-#### Week 2 Demo: "Your First Band Member" 
+#### Week 2 Demo: "Your First Band Member" ✅ COMPLETED
 **What to Demo**: The hybrid loop - active play funds passive income
-- **Player Scene**: Main game area + basic shop panel with one purchasable drum machine
-- **How to Play**: Earn Groove through rhythm tapping, spend it on a drum machine that generates passive Groove
-- **Demo Script**: "I've earned enough Groove to buy my first drum machine! Now watch - it automatically generates Groove while I'm not playing."
-- **Success Criteria**: Player can buy first instrument and see passive income working
+- [x] **Player Scene**: Main game area + basic shop panel with one purchasable drum machine
+- [x] **How to Play**: Earn Groove through rhythm tapping, spend it on a drum machine that generates passive Groove
+- [x] **Demo Script**: "I've earned enough Groove to buy my first drum machine! Now watch - it automatically generates Groove while I'm not playing."
+- [x] **Success Criteria**: Player can buy first instrument and see passive income working
 
 ### 🎮 Phase 2: Engaging Gameplay (Weeks 3-4)
 

@@ -1,0 +1,91 @@
+[gd_scene load_steps=2 format=3 uid="uid://bvn8x8qg7t7pt"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1"]
+bg_color = Color(0.2, 0.2, 0.3, 0.9)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[node name="ShopPanel" type="Panel"]
+custom_minimum_size = Vector2(300, 400)
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -320.0
+offset_top = -200.0
+offset_right = -20.0
+offset_bottom = 200.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_1")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ShopTitle" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "INSTRUMENT SHOP"
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="PassiveIncomeLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "Passive Income: 0.0 Groove/sec"
+horizontal_alignment = 1
+
+[node name="HSeparator2" type="HSeparator" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="InstrumentList" type="VBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="DrumMachineItem" type="VBoxContainer" parent="VBoxContainer/InstrumentList"]
+layout_mode = 2
+
+[node name="DrumMachineHeader" type="HBoxContainer" parent="VBoxContainer/InstrumentList/DrumMachineItem"]
+layout_mode = 2
+
+[node name="DrumMachineName" type="Label" parent="VBoxContainer/InstrumentList/DrumMachineItem/DrumMachineHeader"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 16
+text = "Drum Machine"
+
+[node name="DrumMachinePrice" type="Label" parent="VBoxContainer/InstrumentList/DrumMachineItem/DrumMachineHeader"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "150 Groove"
+
+[node name="DrumMachineDescription" type="Label" parent="VBoxContainer/InstrumentList/DrumMachineItem"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Generates 1.5 Groove per second"
+autowrap_mode = 2
+
+[node name="DrumMachineBuyButton" type="Button" parent="VBoxContainer/InstrumentList/DrumMachineItem"]
+layout_mode = 2
+text = "BUY DRUM MACHINE"
+
+[node name="DrumMachineStatus" type="Label" parent="VBoxContainer/InstrumentList/DrumMachineItem"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = ""
+horizontal_alignment = 1
+autowrap_mode = 2

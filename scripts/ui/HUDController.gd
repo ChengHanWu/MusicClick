@@ -7,9 +7,15 @@ extends Node
 @onready var rhythm_circle: Button
 @onready var circle_visual: Panel
 @onready var circle_animation: AnimationPlayer
+@onready var passive_income_label: Label
+@onready var shop_panel: Panel
+@onready var drum_machine_buy_button: Button
+@onready var drum_machine_status: Label
+@onready var shop_passive_income_label: Label
 
 var currency_manager: Node
 var metronome: Node
+var shop_manager: Node
 var tween: Tween
 
 func _ready():
@@ -20,24 +26,45 @@ func _ready():
 	var main_scene = get_tree().current_scene
 	groove_counter = main_scene.get_node("UI/TopUI/GrooveCounter")
 	hit_feedback = main_scene.get_node("UI/TopUI/HitFeedback")
+	passive_income_label = main_scene.get_node("UI/TopUI/PassiveIncome")
 	rhythm_circle = main_scene.get_node("UI/CenterContainer/RhythmCircle")
 	circle_visual = main_scene.get_node("UI/CenterContainer/RhythmCircle/CircleVisual")
 	circle_animation = main_scene.get_node("UI/CenterContainer/RhythmCircle/CircleAnimation")
 	
+	# Get shop UI references
+	shop_panel = main_scene.get_node("UI/Shop")
+	drum_machine_buy_button = main_scene.get_node("UI/Shop/VBoxContainer/InstrumentList/DrumMachineItem/DrumMachineBuyButton")
+	drum_machine_status = main_scene.get_node("UI/Shop/VBoxContainer/InstrumentList/DrumMachineItem/DrumMachineStatus")
+	shop_passive_income_label = main_scene.get_node("UI/Shop/VBoxContainer/PassiveIncomeLabel")
+	
 	# Get singleton references
 	currency_manager = CurrencyManager
 	metronome = Metronome
+	shop_manager = ShopManager
 	
 	# Connect signals
 	currency_manager.groove_changed.connect(_on_groove_changed)
+	currency_manager.passive_income_changed.connect(_on_passive_income_changed)
 	metronome.beat_pulse.connect(_on_beat_pulse)
+	
+	# Connect shop signals
+	if drum_machine_buy_button:
+		drum_machine_buy_button.pressed.connect(_on_drum_machine_buy_pressed)
+	if shop_manager:
+		shop_manager.instrument_purchased.connect(_on_instrument_purchased)
+		shop_manager.purchase_failed.connect(_on_purchase_failed)
 	
 	# Initialize display
 	_on_groove_changed(currency_manager.get_groove())
+	_on_passive_income_changed(currency_manager.get_total_passive_income_rate())
+	update_shop_display()
 
 func _on_groove_changed(new_amount: int):
 	if groove_counter:
 		groove_counter.text = "Groove: " + str(new_amount)
+	
+	# Update shop display when groove changes
+	update_shop_display()
 
 func show_hit_feedback(result: InputJudge.HitResult, score: int):
 	if not hit_feedback:
@@ -126,3 +153,51 @@ func animate_hit_response(result: InputJudge.HitResult):
 			# Red flash for miss
 			circle_visual.modulate = Color.RED
 			response_tween.tween_property(circle_visual, "modulate", Color.WHITE, 0.2)
+
+func _on_passive_income_changed(new_rate: float):
+	if passive_income_label:
+		passive_income_label.text = "Passive: %.1f Groove/sec" % new_rate
+	if shop_passive_income_label:
+		shop_passive_income_label.text = "Passive Income: %.1f Groove/sec" % new_rate
+
+func _on_drum_machine_buy_pressed():
+	if shop_manager:
+		shop_manager.purchase_instrument("drum_machine")
+
+func _on_instrument_purchased(instrument_id: String, instrument: Instrument):
+	print("Successfully purchased: ", instrument.get_display_name())
+	update_shop_display()
+
+func _on_purchase_failed(reason: String):
+	print("Purchase failed: ", reason)
+	if drum_machine_status:
+		drum_machine_status.text = "❌ " + reason
+		# Clear the error message after a delay
+		await get_tree().create_timer(3.0).timeout
+		update_shop_display()
+
+func update_shop_display():
+	if not shop_manager:
+		return
+		
+	# Update drum machine button state
+	if drum_machine_buy_button and drum_machine_status:
+		var owns_drum = shop_manager.owns_instrument("drum_machine")
+		var can_afford = shop_manager.can_purchase_instrument("drum_machine")
+		
+		if owns_drum:
+			drum_machine_buy_button.disabled = true
+			drum_machine_buy_button.text = "OWNED"
+			drum_machine_status.text = "✅ Generating passive income!"
+		elif can_afford:
+			drum_machine_buy_button.disabled = false
+			drum_machine_buy_button.text = "BUY DRUM MACHINE"
+			drum_machine_status.text = "Ready to purchase"
+		else:
+			drum_machine_buy_button.disabled = true
+			drum_machine_buy_button.text = "NOT ENOUGH GROOVE"
+			var available_data = shop_manager.get_available_instruments()
+			if available_data.has("drum_machine"):
+				var cost = available_data["drum_machine"].cost
+				var current = currency_manager.get_groove()
+				drum_machine_status.text = "Need %d more Groove (%d/%d)" % [cost - current, current, cost]

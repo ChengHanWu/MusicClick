@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://c8qxvghmqrfxd"]
+[gd_scene load_steps=4 format=3 uid="uid://c8qxvghmqrfxd"]
 
 [ext_resource type="Script" uid="uid://bwddxft5ea4bu" path="res://scripts/game/GameManager.gd" id="1_0vk8j"]
+[ext_resource type="PackedScene" path="res://scenes/ui/shop_panel.tscn" id="2_shop"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1"]
 bg_color = Color(0.3, 0.7, 1, 0.8)
@@ -71,6 +72,14 @@ theme_override_font_sizes/font_size = 16
 text = "Click the circle when it pulses!"
 horizontal_alignment = 1
 autowrap_mode = 2
+
+[node name="PassiveIncome" type="Label" parent="UI/TopUI"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "Passive: 0.0 Groove/sec"
+horizontal_alignment = 1
+
+[node name="Shop" parent="UI" instance=ExtResource("2_shop")]
 
 [node name="Audio" type="Node" parent="."]
 

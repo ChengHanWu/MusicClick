@@ -54,35 +54,11 @@ godot --headless --export-debug "Windows Desktop" builds/rhythmclick-debug.exe
 
 ## File Structure Standards
 
-### Script Organization
-```
-scripts/
-├── core/           # Engine-level systems
-├── game/           # Game logic and state
-├── instruments/    # Instrument implementations  
-├── ui/             # Interface controllers
-└── utils/          # Helper functions and utilities
-```
+Detailed folder organization is maintained in `PROJECT_STRUCTURE.md`. Key technical considerations:
 
-### Asset Organization
-```
-assets/
-├── audio/          # All audio files
-│   ├── instruments/    # Organized by instrument type
-│   ├── feedback/       # UI and gameplay sounds
-│   └── ambient/        # Environmental audio
-├── ui/             # Interface graphics
-└── effects/        # Visual effects and particles
-```
-
-### Scene Structure
-```
-scenes/
-├── main.tscn           # Primary game scene
-├── rhythm_game/        # Rhythm minigame components
-├── instruments/        # Individual instrument scenes
-└── ui/                # Interface scenes
-```
+- **Scripts**: Organized by system responsibility (core, game, instruments, ui)
+- **Assets**: Categorized by type with consistent naming conventions  
+- **Scenes**: Modular scene architecture for maintainability
 
 ## Performance Targets
 - **Frame Rate**: Stable 60 FPS on target hardware

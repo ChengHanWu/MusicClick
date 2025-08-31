@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 Metronome="*res://scripts/core/Metronome.gd"
 CurrencyManager="*res://scripts/game/CurrencyManager.gd"
 InputJudge="*res://scripts/core/InputJudge.gd"
+ShopManager="*res://scripts/game/ShopManager.gd"
 
 [rendering]
 

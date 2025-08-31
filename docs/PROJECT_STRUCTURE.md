@@ -21,21 +21,25 @@ rhythmclick/
 ├── builds/                  # Compiled game builds
 │   └── windows/             # Windows platform builds
 ├── scenes/                  # Godot scene files (.tscn)
-│   ├── main.tscn            # Main game scene (Week 1 complete)
-│   ├── instruments/         # Instrument-related scenes (empty - Week 2+)
+│   ├── main.tscn            # Main game scene (Week 2 complete with shop integration)
+│   ├── instruments/         # Instrument-related scenes (empty - Week 3+)
 │   ├── rhythm_game/         # Core rhythm gameplay scenes (empty)
-│   └── ui/                  # User interface scenes (empty)
+│   └── ui/                  # User interface scenes
+│       └── shop_panel.tscn  # Shop panel UI for instrument purchases
 ├── scripts/                 # GDScript files
 │   ├── core/                # Core game systems
 │   │   ├── InputJudge.gd    # Input timing judgment system
 │   │   └── Metronome.gd     # Global timing system (singleton)
 │   ├── game/                # Main game logic
-│   │   ├── CurrencyManager.gd # Groove currency system (singleton)
+│   │   ├── CurrencyManager.gd # Groove currency & passive income system (singleton)
 │   │   ├── GameManager.gd     # Main game coordinator
-│   │   └── RhythmController.gd # Rhythm game controller
-│   ├── instruments/         # Instrument implementations (empty - Week 2+)
+│   │   ├── RhythmController.gd # Rhythm game controller
+│   │   └── ShopManager.gd     # Instrument shop system (singleton)
+│   ├── instruments/         # Instrument implementations
+│   │   ├── Instrument.gd      # Base instrument class
+│   │   └── DrumMachine.gd     # Drum machine instrument (Week 2)
 │   └── ui/                  # UI controllers
-│       └── HUDController.gd # UI updates and animations
+│       └── HUDController.gd # UI updates, animations, and shop interactions
 ├── CLAUDE.md               # Main Claude Code guidance file
 ├── icon.svg               # Project icon
 ├── icon.svg.import        # Godot import settings for icon
@@ -48,12 +52,15 @@ rhythmclick/
 - **Assets**: snake_case with category prefixes (e.g., `drum_kick_120bpm.ogg`)
 - **Documentation**: UPPERCASE with underscores (e.g., `GAME_DESIGN.md`)
 
-## Key System Locations ✅ IMPLEMENTED (Week 1)
+## Key System Locations ✅ IMPLEMENTED (Week 2)
 - **Core Rhythm Logic**: `scripts/core/` ✅ (InputJudge.gd, Metronome.gd complete)
 - **Game State Management**: `scripts/game/GameManager.gd` ✅ (fully implemented)
-- **Currency System**: `scripts/game/CurrencyManager.gd` ✅ (singleton implemented)
-- **Main Game Scene**: `scenes/main.tscn` ✅ (working rhythm game interface)
-- **Audio Assets**: `audio/instruments/[instrument_name]/` (folders exist, placeholder audio in use)
+- **Currency System**: `scripts/game/CurrencyManager.gd` ✅ (with passive income generation)
+- **Shop System**: `scripts/game/ShopManager.gd` ✅ (instrument purchasing system)
+- **Instrument System**: `scripts/instruments/` ✅ (base class + DrumMachine implemented)
+- **Main Game Scene**: `scenes/main.tscn` ✅ (rhythm game + shop panel integrated)
+- **Shop UI**: `scenes/ui/shop_panel.tscn` ✅ (purchase interface complete)
+- **Audio Assets**: `audio/instruments/drums/` ✅ (placeholder .ogg files ready for replacement)
 
 ## Development Notes
 - Use Godot 4.4 with GL Compatibility renderer
@@ -61,20 +68,20 @@ rhythmclick/
 - Main scene entry point: `res://main.tscn`
 - Build output: `builds/` directory
 
-## Current Project State - Week 1 Demo Complete
-- **Scripts**: All Week 1 core systems implemented and ready
+## Current Project State - Week 2 Demo Complete
+- **Scripts**: All Week 2 core systems implemented and ready
   - ✅ Metronome system with precise 90 BPM timing
-  - ✅ Currency Manager for Groove points 
+  - ✅ Currency Manager with passive income generation
   - ✅ Input Judge for timing accuracy detection
   - ✅ Rhythm Controller connecting all systems
-  - ✅ HUD Controller for UI updates and animations
+  - ✅ HUD Controller with shop interactions and passive income display
   - ✅ Game Manager coordinating everything
-- **Scenes**: Main game scene with pulsing circle interface ready
+  - ✅ Shop Manager singleton for instrument purchases
+  - ✅ Instrument base class and DrumMachine implementation
+- **Scenes**: Main game scene with shop panel integrated
 - **Audio**: Placeholder audio files in place (need real .ogg files)
-- **Functionality**: Basic rhythm tapping game ready for testing
+- **Functionality**: Complete Week 2 hybrid experience - active play funds passive income
 
-## Update Log
-- **2024-12-29**: Updated PROJECT_STRUCTURE.md to reflect actual current state (post-rollback)
-- **2024-12-29**: Week 1 Demo "The Basic Beat" implementation completed ✅
-- **2024-12-29**: Week 1 Demo tested and confirmed working - 100+ Groove in 30 seconds achievable ✅
-- **Next Update**: Ready for Week 2 Demo implementation - "Your First Band Member"
+## Current Development Status
+- **Week 2 Demo: "Your First Band Member"** ✅ COMPLETE
+- **Next Target**: Week 3 Demo - "Growing Your Sound" (multiple instruments, layered audio)
